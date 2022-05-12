@@ -1,5 +1,6 @@
 import Image from "next/image";
-const api = "?api-key=6dGfOJbKU8MNFWz6z9s1eTghsxiPFjlX";
+import { categories } from "../../data/index.js"; 
+const api = "?api-key=6dGfOJbKU8MNFWz6z9s1eTghsxiPFjlXsaleh";
 
 export const getStaticProps = async () => {
     const res = await fetch(`https://api.nytimes.com/svc/topstories/v2/home.json${api}`);
@@ -7,12 +8,15 @@ export const getStaticProps = async () => {
 
     return {
         props: {
+            plainData: data,
             agenda: data.results
         }
     }
 };
 
-const LatestNews = ({ agenda }) => {
+console.log(categories);
+
+const LatestNews = ({ agenda, plainData }) => {
     return (
         <div>
             <h1 className="heading">News</h1>
@@ -33,7 +37,15 @@ const LatestNews = ({ agenda }) => {
                     })}
                 </div>
             </div>
-            {console.log(agenda)}
+            <h2 className="heading">Categories</h2>
+            <div className="content">
+            {categories.map((cat, i) => {
+                return (
+                    <button key={i}>{cat}</button>
+                )
+            })}
+            </div>
+            
         </div>
     )
 };
