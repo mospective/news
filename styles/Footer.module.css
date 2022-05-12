@@ -1,0 +1,27 @@
+.footer {
+    display: grid;
+    grid-template-columns: 1fr minmax(320px, calc(1360px + 2.5em)) 1fr;
+    width: 100%;
+    
+}
+
+.inner-container {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    margin-top: 60px;
+    border-top: 2px solid #eaeaea;
+}
+
+.inner-container p {
+    color: #777;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 1400px) {
+    .inner-container {
+        padding: 0 20px;
+    }
+  }
