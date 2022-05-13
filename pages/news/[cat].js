@@ -1,25 +1,35 @@
 import Image from "next/image";
-import Link from "next/link";
 import { categories } from "../../data/index.js"; 
 const api = "?api-key=6dGfOJbKU8MNFWz6z9s1eTghsxiPFjlXSalh4";
 
-export const getStaticProps = async () => {
-    const res = await fetch(`https://api.nytimes.com/svc/topstories/v2/home.json${api}`);
+export const getStaticPaths = async () => {
+    const paths = categories.map(cat => {
+        return {
+            params: { cat: cat}
+        }
+    })
+
+    return {
+        paths: paths,
+        fallback: false
+    }
+};
+
+export const getStaticProps = async (context) => {
+    const section = context.params.cat;
+    const res = await fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json${api}`);
     const data = await res.json();
 
     return {
         props: {
-            plainData: data,
             agenda: data.results
         }
     }
 };
 
-console.log(categories);
-
-const LatestNews = ({ agenda, plainData }) => {
+const Category = ({ agenda }) => {
     return (
-        <div>
+        <>
             <h1 className="heading">News</h1>
             <div className="content">
                 <div className="cards">
@@ -39,19 +49,8 @@ const LatestNews = ({ agenda, plainData }) => {
                     })}
                 </div>
             </div>
-            <h2 className="heading">Categories</h2>
-            <div className="content">
-            {categories.map((cat, i) => {
-                return (
-                    <Link href={`/news/${cat}`}>
-                        <button key={i}>{cat}</button>
-                    </Link>
-                )
-            })}
-            </div>
-            
-        </div>
+        </>
     )
 };
 
-export default LatestNews;
+export default Category;
