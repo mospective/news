@@ -6,7 +6,9 @@ const Navbar = () => {
         <section className={styles["navigation-bar"]}>
             <div className={styles["inner-container"]}>
                 <div className={styles.logo}>
-                    <h1 className={styles.mainlogo}>Codehouse <span className={styles.red}>News</span></h1>
+                    <Link href="/">
+                        <h1 className={styles.mainlogo}>Codehouse <span className={styles.red}>News</span></h1>
+                    </Link>
                 </div>
                 <nav className={styles.nav}>
                     <li><Link href="/"><a>Home</a></Link></li>

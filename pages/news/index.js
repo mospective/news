@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { categories } from "../../data/index.js"; 
-const api = "?api-key=6dGfOJbKU8MNFWz6z9s1eTghsxiPFjlXSalh4";
+const api = "?api-key=6dGfOJbKU8MNFWz6z9s1eTghsxiPFjlX";
 
 export const getStaticProps = async () => {
     const res = await fetch(`https://api.nytimes.com/svc/topstories/v2/home.json${api}`);
@@ -9,22 +9,18 @@ export const getStaticProps = async () => {
 
     return {
         props: {
-            plainData: data,
             agenda: data.results
         }
     }
 };
 
-console.log(categories);
-
-const LatestNews = ({ agenda, plainData }) => {
+const LatestNews = ({ agenda }) => {
     return (
         <div>
             <h1 className="heading">News</h1>
             <div className="content">
                 <div className="cards">
-                    {console.log(agenda)}
-                    {agenda.map(news => {
+                    {(agenda || null).map(news => {
                         const image = !(news.multimedia === null || undefined) && news.multimedia[1];
                         return (
                             <div className="card">
